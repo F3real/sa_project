@@ -9,8 +9,8 @@ RABBIT_MQ = 'localhost'
 
 def Main():
 
-    rfid_thread = threading.Thread(target = handler_gate)
-    rfid_thread.start()
+    gate_thread = threading.Thread(target = handler_gate)
+    gate_thread.start()
 
     mySocket = socket.socket()
     mySocket.bind((HOST,PORT))
@@ -60,8 +60,14 @@ def handler_gate():
 #to deliver it to appropriate gate
 def callback_gate(ch, method, properties, body):
     print(" [x] Received %r" % body)
-    #TODO create gate.py with server and send message to that server from here
-    # server should simply print open(we should choose ip from list based on door id)
+    mySocket = socket.socket()
+    gate_id = body.decode('utf-8')
+    mySocket.connect((GATE_INFO[gate_id][0], GATE_INFO[gate_id][1]))
+    msg = 'GATE {}'.format(gate_id)
+    mySocket.send(msg.encode())
+    mySocket.close()
+
+GATE_INFO = {'1':['localhost', 5002]}
 
 if __name__ == '__main__':
     Main()

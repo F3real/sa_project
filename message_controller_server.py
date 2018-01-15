@@ -1,15 +1,33 @@
 import threading
+import socket
 import pika
 
 
 RABBIT_MQ = 'localhost'
+HOST = '127.0.0.1'
+PORT = 5001
 
 def Main():
     rfid_thread = threading.Thread(target = handler_RFID)
     rfid_thread.start()
-    rfid_thread.join()
-    #TODO create server for listening for response from auth service
-    #and call handle_gate_message with response
+    
+    mySocket = socket.socket()
+    mySocket.bind((HOST,PORT))
+    mySocket.listen(1)
+
+    while True:
+        conn, addr = mySocket.accept()
+        data = conn.recv(1024).decode()
+        if data:
+            print ("RECIEVED DATA:  " + str(data))
+            data_list = data.split()
+            if len(data_list) >= 2:
+                if data_list[0] == "GATE":
+                    handle_gate_message(data_list[1])
+
+    mySocket.shutdown()
+    mySocket.close()
+
 
 ##RFID##
 
@@ -27,6 +45,7 @@ def handler_RFID():
 def callback_RFID(ch, method, properties, body):
     print(" [x] Received %r" % body)
     #TODO send message to auth service
+    handle_gate_message(1)
 
 
 ##GATE##
