@@ -4,7 +4,7 @@ import threading
 
 HOST = '127.0.0.1'
 PORT = 5002
-GATE_ID = 1 #identifies gate so we know its location
+GATE_ID = 4 #identifies gate so we know its location
 
 def Main():
 

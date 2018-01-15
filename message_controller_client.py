@@ -67,7 +67,7 @@ def callback_gate(ch, method, properties, body):
     mySocket.send(msg.encode())
     mySocket.close()
 
-GATE_INFO = {'1':['localhost', 5002]}
+GATE_INFO = {'4':['localhost', 5002]}
 
 if __name__ == '__main__':
     Main()

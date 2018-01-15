@@ -7,6 +7,9 @@ RABBIT_MQ = 'localhost'
 HOST = '127.0.0.1'
 PORT = 5001
 
+ACCESS_SERVICE_IP = 'localhost'
+ACCESS_SERVICE_PORT = 5003
+
 def Main():
     rfid_thread = threading.Thread(target = handler_RFID)
     rfid_thread.start()
@@ -44,8 +47,12 @@ def handler_RFID():
 #Callback function called on each incoming message
 def callback_RFID(ch, method, properties, body):
     print(" [x] Received %r" % body)
-    #TODO send message to auth service
-    handle_gate_message(1)
+    data = body.decode('utf-8').split()
+    mySocket = socket.socket()
+    mySocket.connect((ACCESS_SERVICE_IP,ACCESS_SERVICE_PORT))
+    msg = 'RFID_M {} {}'.format(data[0], data[1])
+    mySocket.send(msg.encode())
+    mySocket.close()
 
 
 ##GATE##
