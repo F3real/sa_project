@@ -61,10 +61,11 @@ def handle_auth_message(reader_id, user_id):
             hour = now.hour
 
         with db.cursor() as cur:
-            cur.execute("""SELECT * FROM permissions WHERE room_id=%s and user_id=%s and day=%s""",
-                        (room_id, user_id, day))
+            cur.execute("""SELECT opened_from, opened_till, current_capacity
+            FROM permissions P JOIN room R ON P.room_id=R.id WHERE room_id=%s and user_id=%s and day=%s""",
+                        (room_id, user_id, day))              
             res = cur.fetchall()[0]
-            if hour > res[3] and hour < res[4]:
+            if hour > res[0] and hour < res[1] and (res[2] > 0 or rfid_type=="exit"):
                 mySocket = socket.socket()
                 mySocket.connect((MSG_SERVER_HOST, MSG_SERVER_PORT))
                 msg = 'GATE {}'.format(room_id)
@@ -75,6 +76,15 @@ def handle_auth_message(reader_id, user_id):
                 with db.cursor() as cur:
                     cur.execute("""INSERT INTO `entrylog` (`id`, `room_id`, `time`, `type`, `user_id`) 
                     VALUES (NULL, %s, %s, %s, %s)""", (room_id, now.isoformat(), rfid_type, user_id))
+                    db.commit()
+
+                #modify room occupancy
+                with db.cursor() as cur:
+                    entry_st = '-'
+                    if rfid_type == "exit":
+                        entry_st = '+'
+                    cur.execute(("UPDATE room SET current_capacity = current_capacity"+entry_st+"1 WHERE id = %s"), 
+                    (room_id,))
                     db.commit()
     finally:
         db.close()

@@ -10,7 +10,7 @@ def Main():
     while True:
         wait = input("PRESS BUTTON TO CONTINUE.")
         try:
-            send_data(1)
+            send_data(1) #fixed user id
         except ConnectionError:
             print("Connection error")
 
