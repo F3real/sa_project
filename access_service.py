@@ -62,7 +62,7 @@ def handle_auth_message(reader_id, user_id):
 
         with db.cursor() as cur:
             cur.execute("""SELECT opened_from, opened_till, current_capacity
-            FROM permissions P JOIN room R ON P.room_id=R.id WHERE room_id=%s and user_id=%s and day=%s""",
+            FROM permissions,room WHERE room.id=permissions.room_id and room_id=%s and user_id=%s and day=%s""",
                         (room_id, user_id, day))              
             res = cur.fetchall()[0]
             if hour > res[0] and hour < res[1] and (res[2] > 0 or rfid_type=="exit"):
