@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 15, 2018 at 04:07 PM
+-- Generation Time: Jan 18, 2018 at 11:33 PM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -115,7 +115,14 @@ INSERT INTO `entrylog` (`id`, `room_id`, `time`, `type`, `user_id`) VALUES
 (13, 4, '2018-01-02 10:32:00', 'entry', 12),
 (14, 4, '2018-01-03 00:00:00', 'entry', 1),
 (16, 4, '2018-01-15 00:00:00', 'entry', 1),
-(17, 4, '2018-01-15 16:06:35', 'entry', 1);
+(17, 4, '2018-01-15 16:06:35', 'entry', 1),
+(18, 4, '2018-01-17 14:24:45', 'entry', 1),
+(19, 4, '2018-01-17 14:26:50', 'entry', 1),
+(20, 4, '2018-01-17 14:27:44', 'entry', 1),
+(21, 4, '2018-01-17 14:28:12', 'entry', 1),
+(22, 4, '2018-01-17 14:31:19', 'entry', 1),
+(23, 1, '2018-01-17 14:41:25', 'entry', 2),
+(24, 1, '2018-01-17 14:49:01', 'entry', 1);
 
 -- --------------------------------------------------------
 
@@ -134,7 +141,8 @@ CREATE TABLE `parents` (
 --
 
 INSERT INTO `parents` (`id`, `user_id`, `parent_id`) VALUES
-(1, 4, 11);
+(1, 1, 4),
+(2, 2, 4);
 
 -- --------------------------------------------------------
 
@@ -156,7 +164,8 @@ CREATE TABLE `permissions` (
 --
 
 INSERT INTO `permissions` (`id`, `room_id`, `user_id`, `opened_from`, `opened_till`, `day`) VALUES
-(1, 4, 1, 8, 20, 'monday');
+(1, 4, 1, 8, 20, 'monday'),
+(2, 4, 1, 8, 20, 'wednesday');
 
 -- --------------------------------------------------------
 
@@ -198,7 +207,7 @@ INSERT INTO `room` (`id`, `name`, `capacity`, `current_capacity`) VALUES
 (1, 'Main_school_entrance', 2000, 2000),
 (2, 'Professors_room', 40, 40),
 (3, 'Operators_room', 50, 40),
-(4, 'Chemistry_laboratory', 30, 30),
+(4, 'Chemistry_laboratory', 30, 27),
 (5, 'Computers_laboratory', 60, 60);
 
 -- --------------------------------------------------------
@@ -266,7 +275,7 @@ CREATE TABLE `user` (
   `surname` text NOT NULL,
   `status_id` int(2) NOT NULL,
   `picture` varchar(40) DEFAULT NULL,
-  `password` varchar(15) DEFAULT NULL,
+  `password` varchar(100) DEFAULT NULL,
   `document` varchar(10) NOT NULL,
   `active` tinyint(4) NOT NULL,
   `school_id` int(11) NOT NULL
@@ -277,10 +286,10 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `codice_fiscale`, `name`, `surname`, `status_id`, `picture`, `password`, `document`, `active`, `school_id`) VALUES
-(1, 'Shann483hx', 'Mario', 'Rossi', 2, '3', 'prova1', 'anr23442', 0, 1),
+(1, 'test', 'Mario', 'Rossi', 2, '3', 'pbkdf2:sha256:50000$KNDXHQzu$d9a9fb4b85e3ebe1b373aa12e1396806859bf1304b5214f3d8874d4b10a231bb', 'anr23442', 0, 1),
 (2, 'ggscud2378annu', 'Barack', 'Obama', 1, NULL, 'rqwafs877', 'bo5tr', 1, 1),
 (3, 'asdd789asda', 'Marco', 'Bianchi', 2, '3', 'sdasd89', 'fds54rw', 1, 1),
-(4, '2398090af7a98', 'Leonardo', 'Di Caprio', 2, '3', 'maisdads89', '346rwe', 0, 1),
+(4, 'test1', 'Leonardo', 'Di Caprio', 2, '3', 'pbkdf2:sha256:50000$KNDXHQzu$d9a9fb4b85e3ebe1b373aa12e1396806859bf1304b5214f3d8874d4b10a231bb', '346rwe', 0, 1),
 (5, 'sasd879asd', 'Luis Nazario da Lima', 'Ronaldo', 2, NULL, 'asdasdrw', '435fd', 0, 1),
 (9, 'kjds872eq', 'Kim', 'Jong-un', 3, NULL, 'asdasq42', 'afs3r', 0, 1),
 (11, 'gna0r39r0ksd', 'Will', 'Smith', 4, NULL, 'sadiiads789', 'ahus78f', 1, 1),
@@ -428,19 +437,19 @@ ALTER TABLE `door_lock_actuator`
 -- AUTO_INCREMENT for table `entrylog`
 --
 ALTER TABLE `entrylog`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `parents`
 --
 ALTER TABLE `parents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `rfid`
