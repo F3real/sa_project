@@ -11,7 +11,7 @@ DB_PASSWORD = ''
 DB_USERNAME = ''
 DB_HOST = ''
 DB_NAME = ''
-WEEKDAYS = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
+WEEKDAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 
 MSG_SERVER_HOST = '127.0.0.1'
 MSG_SERVER_PORT = 5001
@@ -47,8 +47,8 @@ def Main():
 
 def handle_auth_message(reader_id, user_id):
     print("Handling RFID request")
-    db=MySQLdb.connect(host=DB_HOST, user=DB_USERNAME, passwd=DB_PASSWORD, db=DB_NAME)
-    
+    db = MySQLdb.connect(host=DB_HOST, user=DB_USERNAME, passwd=DB_PASSWORD, db=DB_NAME)
+
     try:
         with db.cursor() as cur:
             cur.execute("SELECT room_id, type FROM rfid WHERE id=%s LIMIT 1", (reader_id,))
@@ -84,7 +84,7 @@ def handle_auth_message(reader_id, user_id):
                     if rfid_type == "exit":
                         entry_st = '+'
                     cur.execute(("UPDATE room SET current_capacity = current_capacity"+entry_st+"1 WHERE id = %s"), 
-                    (room_id,))
+                                (room_id,))
                     db.commit()
     finally:
         db.close()
