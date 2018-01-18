@@ -1,6 +1,6 @@
 import configparser
 
-from flask import Flask
+from flask import Flask, jsonify
 from flaskext.mysql import MySQL
 from flask_restful import Resource, Api
 from flask_httpauth import HTTPBasicAuth
@@ -22,19 +22,28 @@ app.config['MYSQL_DATABASE_DB'] = config['DEFAULT']['NAME']
 app.config['MYSQL_DATABASE_HOST'] = config['DEFAULT']['HOST']
 mysql.init_app(app)
 
-#to view connect to http://localhost:5004/logs
+#to view connect to https://user:pass@localhost:5004/logs
 class StudentLogs(Resource):
     @auth.login_required
     def get(self):
         db = mysql.connect()
-        res = ""
+        res = ()
+        entries = []
         try:
             with db.cursor() as cur:
-                cur.execute("SELECT room_id, type FROM rfid WHERE id=%s LIMIT 1", (1,))
+                cur.execute("SELECT id FROM user WHERE codice_fiscale=%s LIMIT 1", (auth.username(),))
+                res = cur.fetchall()[0][0]
+            with db.cursor() as cur:
+                cur.execute("SELECT user_id FROM parents WHERE parent_id=%s", (res,))
                 res = cur.fetchall()
+                for child_id in res:
+                    cur.execute("""SELECT time, type FROM entrylog WHERE user_id=%s AND room_id=1
+                                AND time BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()""", (child_id,))
+                    res = cur.fetchall()
+                    entries.append(res)
         finally:
             db.close()
-        return "Welcome " + auth.username()
+        return jsonify(entries)
 
 api.add_resource(StudentLogs, '/logs')
 
