@@ -34,12 +34,14 @@ class StudentLogs(Resource):
                 cur.execute("SELECT id FROM user WHERE codice_fiscale=%s LIMIT 1", (auth.username(),))
                 res = cur.fetchall()[0][0]
             with db.cursor() as cur:
-                cur.execute("SELECT user_id FROM parents WHERE parent_id=%s", (res,))
+                cur.execute("""SELECT user_id, name, surname FROM parents, user WHERE user.id=parents.user_id
+                            AND parents.parent_id=%s""", (res,))
                 res = cur.fetchall()
-                for child_id in res:
+                for child_data in res:
                     cur.execute("""SELECT time, type FROM entrylog WHERE user_id=%s AND room_id=1
-                                AND time BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()""", (child_id,))
+                                AND time BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()""", (child_data[0],))
                     res = cur.fetchall()
+                    entries.append(child_data[1:])
                     entries.append(res)
         finally:
             db.close()
