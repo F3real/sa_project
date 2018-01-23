@@ -7,7 +7,7 @@ keypair.generate_key(crypto.TYPE_RSA, 4096)
 #print(crypto.dump_privatekey(crypto.FILETYPE_PEM, keypair))
 #print(crypto.dump_publickey(crypto.FILETYPE_PEM, keypair))
 with open('private.key', 'wb') as f:
-		f.write(crypto.dump_privatekey(crypto.FILETYPE_PEM, keypair))
+    f.write(crypto.dump_privatekey(crypto.FILETYPE_PEM, keypair))
 
 cert = crypto.X509()
 cert.get_subject().C = "IT"

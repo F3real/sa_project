@@ -12,7 +12,7 @@ api = Api(app)
 
 auth = HTTPBasicAuth()
 
-config = configparser.ConfigParser() 
+config = configparser.ConfigParser()
 config.read('db.ini')
 
 mysql = MySQL()
