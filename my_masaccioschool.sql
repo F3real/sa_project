@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 18, 2018 at 11:33 PM
--- Server version: 10.1.29-MariaDB
--- PHP Version: 7.2.0
+-- Creato il: Gen 23, 2018 alle 16:39
+-- Versione del server: 10.1.29-MariaDB
+-- Versione PHP: 7.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `alarm`
+-- Struttura della tabella `alarm`
 --
 
 CREATE TABLE `alarm` (
@@ -37,7 +37,7 @@ CREATE TABLE `alarm` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `alarmlog`
+-- Struttura della tabella `alarmlog`
 --
 
 CREATE TABLE `alarmlog` (
@@ -51,20 +51,28 @@ CREATE TABLE `alarmlog` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `contact_info`
+-- Struttura della tabella `contact_info`
 --
 
 CREATE TABLE `contact_info` (
   `id` int(11) NOT NULL,
   `data` text NOT NULL,
   `user_id` int(15) NOT NULL,
-  `type` enum('email','phone') NOT NULL
+  `type_c` enum('email','phone') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dump dei dati per la tabella `contact_info`
+--
+
+INSERT INTO `contact_info` (`id`, `data`, `user_id`, `type_c`) VALUES
+(1, 'mario.rossi@hotmail.it', 1, 'email'),
+(2, 'test2', 2, 'email');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `device`
+-- Struttura della tabella `device`
 --
 
 CREATE TABLE `device` (
@@ -78,7 +86,7 @@ CREATE TABLE `device` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `door_lock_actuator`
+-- Struttura della tabella `door_lock_actuator`
 --
 
 CREATE TABLE `door_lock_actuator` (
@@ -89,7 +97,7 @@ CREATE TABLE `door_lock_actuator` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `entrylog`
+-- Struttura della tabella `entrylog`
 --
 
 CREATE TABLE `entrylog` (
@@ -101,7 +109,7 @@ CREATE TABLE `entrylog` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `entrylog`
+-- Dump dei dati per la tabella `entrylog`
 --
 
 INSERT INTO `entrylog` (`id`, `room_id`, `time`, `type`, `user_id`) VALUES
@@ -127,7 +135,7 @@ INSERT INTO `entrylog` (`id`, `room_id`, `time`, `type`, `user_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `parents`
+-- Struttura della tabella `parents`
 --
 
 CREATE TABLE `parents` (
@@ -137,7 +145,7 @@ CREATE TABLE `parents` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `parents`
+-- Dump dei dati per la tabella `parents`
 --
 
 INSERT INTO `parents` (`id`, `user_id`, `parent_id`) VALUES
@@ -147,7 +155,7 @@ INSERT INTO `parents` (`id`, `user_id`, `parent_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `permissions`
+-- Struttura della tabella `permissions`
 --
 
 CREATE TABLE `permissions` (
@@ -160,7 +168,7 @@ CREATE TABLE `permissions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `permissions`
+-- Dump dei dati per la tabella `permissions`
 --
 
 INSERT INTO `permissions` (`id`, `room_id`, `user_id`, `opened_from`, `opened_till`, `day`) VALUES
@@ -170,7 +178,7 @@ INSERT INTO `permissions` (`id`, `room_id`, `user_id`, `opened_from`, `opened_ti
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rfid`
+-- Struttura della tabella `rfid`
 --
 
 CREATE TABLE `rfid` (
@@ -180,7 +188,7 @@ CREATE TABLE `rfid` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `rfid`
+-- Dump dei dati per la tabella `rfid`
 --
 
 INSERT INTO `rfid` (`id`, `room_id`, `type`) VALUES
@@ -189,7 +197,7 @@ INSERT INTO `rfid` (`id`, `room_id`, `type`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `room`
+-- Struttura della tabella `room`
 --
 
 CREATE TABLE `room` (
@@ -200,7 +208,7 @@ CREATE TABLE `room` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `room`
+-- Dump dei dati per la tabella `room`
 --
 
 INSERT INTO `room` (`id`, `name`, `capacity`, `current_capacity`) VALUES
@@ -213,7 +221,7 @@ INSERT INTO `room` (`id`, `name`, `capacity`, `current_capacity`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `school`
+-- Struttura della tabella `school`
 --
 
 CREATE TABLE `school` (
@@ -223,7 +231,7 @@ CREATE TABLE `school` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `school`
+-- Dump dei dati per la tabella `school`
 --
 
 INSERT INTO `school` (`id`, `name`, `address`) VALUES
@@ -232,7 +240,7 @@ INSERT INTO `school` (`id`, `name`, `address`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sensors`
+-- Struttura della tabella `sensors`
 --
 
 CREATE TABLE `sensors` (
@@ -244,7 +252,7 @@ CREATE TABLE `sensors` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `status`
+-- Struttura della tabella `status`
 --
 
 CREATE TABLE `status` (
@@ -253,7 +261,7 @@ CREATE TABLE `status` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `status`
+-- Dump dei dati per la tabella `status`
 --
 
 INSERT INTO `status` (`id`, `name`) VALUES
@@ -265,7 +273,7 @@ INSERT INTO `status` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Struttura della tabella `user`
 --
 
 CREATE TABLE `user` (
@@ -282,12 +290,12 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user`
+-- Dump dei dati per la tabella `user`
 --
 
 INSERT INTO `user` (`id`, `codice_fiscale`, `name`, `surname`, `status_id`, `picture`, `password`, `document`, `active`, `school_id`) VALUES
 (1, 'test', 'Mario', 'Rossi', 2, '3', 'pbkdf2:sha256:50000$KNDXHQzu$d9a9fb4b85e3ebe1b373aa12e1396806859bf1304b5214f3d8874d4b10a231bb', 'anr23442', 0, 1),
-(2, 'ggscud2378annu', 'Barack', 'Obama', 1, NULL, 'rqwafs877', 'bo5tr', 1, 1),
+(2, 'ggscud2378annu', 'Barack', 'Obama', 1, NULL, '123', 'bo5tr', 1, 1),
 (3, 'asdd789asda', 'Marco', 'Bianchi', 2, '3', 'sdasd89', 'fds54rw', 1, 1),
 (4, 'test1', 'Leonardo', 'Di Caprio', 2, '3', 'pbkdf2:sha256:50000$KNDXHQzu$d9a9fb4b85e3ebe1b373aa12e1396806859bf1304b5214f3d8874d4b10a231bb', '346rwe', 0, 1),
 (5, 'sasd879asd', 'Luis Nazario da Lima', 'Ronaldo', 2, NULL, 'asdasdrw', '435fd', 0, 1),
@@ -296,17 +304,17 @@ INSERT INTO `user` (`id`, `codice_fiscale`, `name`, `surname`, `status_id`, `pic
 (12, 'swr325ef', 'Ozzy', 'Osbourne', 2, NULL, 'werwe32', 'sfre3532', 1, 1);
 
 --
--- Indexes for dumped tables
+-- Indici per le tabelle scaricate
 --
 
 --
--- Indexes for table `alarm`
+-- Indici per le tabelle `alarm`
 --
 ALTER TABLE `alarm`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `alarmlog`
+-- Indici per le tabelle `alarmlog`
 --
 ALTER TABLE `alarmlog`
   ADD PRIMARY KEY (`id`),
@@ -315,28 +323,28 @@ ALTER TABLE `alarmlog`
   ADD KEY `sensors_id` (`sensors_id`);
 
 --
--- Indexes for table `contact_info`
+-- Indici per le tabelle `contact_info`
 --
 ALTER TABLE `contact_info`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `device`
+-- Indici per le tabelle `device`
 --
 ALTER TABLE `device`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `door_lock_actuator`
+-- Indici per le tabelle `door_lock_actuator`
 --
 ALTER TABLE `door_lock_actuator`
   ADD PRIMARY KEY (`id`),
   ADD KEY `room_id` (`room_id`);
 
 --
--- Indexes for table `entrylog`
+-- Indici per le tabelle `entrylog`
 --
 ALTER TABLE `entrylog`
   ADD PRIMARY KEY (`id`),
@@ -344,7 +352,7 @@ ALTER TABLE `entrylog`
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `parents`
+-- Indici per le tabelle `parents`
 --
 ALTER TABLE `parents`
   ADD PRIMARY KEY (`id`),
@@ -352,7 +360,7 @@ ALTER TABLE `parents`
   ADD KEY `parent_id` (`parent_id`);
 
 --
--- Indexes for table `permissions`
+-- Indici per le tabelle `permissions`
 --
 ALTER TABLE `permissions`
   ADD PRIMARY KEY (`id`),
@@ -360,39 +368,39 @@ ALTER TABLE `permissions`
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `rfid`
+-- Indici per le tabelle `rfid`
 --
 ALTER TABLE `rfid`
   ADD PRIMARY KEY (`id`),
   ADD KEY `room_id` (`room_id`);
 
 --
--- Indexes for table `room`
+-- Indici per le tabelle `room`
 --
 ALTER TABLE `room`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `school`
+-- Indici per le tabelle `school`
 --
 ALTER TABLE `school`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `sensors`
+-- Indici per le tabelle `sensors`
 --
 ALTER TABLE `sensors`
   ADD PRIMARY KEY (`id`),
   ADD KEY `room_id` (`room_id`);
 
 --
--- Indexes for table `status`
+-- Indici per le tabelle `status`
 --
 ALTER TABLE `status`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `user`
+-- Indici per le tabelle `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
@@ -400,99 +408,99 @@ ALTER TABLE `user`
   ADD KEY `school_id` (`school_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT per le tabelle scaricate
 --
 
 --
--- AUTO_INCREMENT for table `alarm`
+-- AUTO_INCREMENT per la tabella `alarm`
 --
 ALTER TABLE `alarm`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `alarmlog`
+-- AUTO_INCREMENT per la tabella `alarmlog`
 --
 ALTER TABLE `alarmlog`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `contact_info`
+-- AUTO_INCREMENT per la tabella `contact_info`
 --
 ALTER TABLE `contact_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `device`
+-- AUTO_INCREMENT per la tabella `device`
 --
 ALTER TABLE `device`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `door_lock_actuator`
+-- AUTO_INCREMENT per la tabella `door_lock_actuator`
 --
 ALTER TABLE `door_lock_actuator`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `entrylog`
+-- AUTO_INCREMENT per la tabella `entrylog`
 --
 ALTER TABLE `entrylog`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
--- AUTO_INCREMENT for table `parents`
+-- AUTO_INCREMENT per la tabella `parents`
 --
 ALTER TABLE `parents`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `permissions`
+-- AUTO_INCREMENT per la tabella `permissions`
 --
 ALTER TABLE `permissions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `rfid`
+-- AUTO_INCREMENT per la tabella `rfid`
 --
 ALTER TABLE `rfid`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `room`
+-- AUTO_INCREMENT per la tabella `room`
 --
 ALTER TABLE `room`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `school`
+-- AUTO_INCREMENT per la tabella `school`
 --
 ALTER TABLE `school`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `sensors`
+-- AUTO_INCREMENT per la tabella `sensors`
 --
 ALTER TABLE `sensors`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `status`
+-- AUTO_INCREMENT per la tabella `status`
 --
 ALTER TABLE `status`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT per la tabella `user`
 --
 ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- Constraints for dumped tables
+-- Limiti per le tabelle scaricate
 --
 
 --
--- Constraints for table `alarmlog`
+-- Limiti per la tabella `alarmlog`
 --
 ALTER TABLE `alarmlog`
   ADD CONSTRAINT `alarmlog_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
@@ -500,58 +508,58 @@ ALTER TABLE `alarmlog`
   ADD CONSTRAINT `alarmlog_ibfk_3` FOREIGN KEY (`sensors_id`) REFERENCES `sensors` (`id`);
 
 --
--- Constraints for table `contact_info`
+-- Limiti per la tabella `contact_info`
 --
 ALTER TABLE `contact_info`
   ADD CONSTRAINT `contact_info_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
--- Constraints for table `device`
+-- Limiti per la tabella `device`
 --
 ALTER TABLE `device`
   ADD CONSTRAINT `device_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
--- Constraints for table `door_lock_actuator`
+-- Limiti per la tabella `door_lock_actuator`
 --
 ALTER TABLE `door_lock_actuator`
   ADD CONSTRAINT `door_lock_actuator_ibfk_1` FOREIGN KEY (`room_id`) REFERENCES `room` (`id`);
 
 --
--- Constraints for table `entrylog`
+-- Limiti per la tabella `entrylog`
 --
 ALTER TABLE `entrylog`
   ADD CONSTRAINT `entrylog_ibfk_1` FOREIGN KEY (`room_id`) REFERENCES `room` (`id`),
   ADD CONSTRAINT `entrylog_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
--- Constraints for table `parents`
+-- Limiti per la tabella `parents`
 --
 ALTER TABLE `parents`
   ADD CONSTRAINT `parents_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `parents_ibfk_2` FOREIGN KEY (`parent_id`) REFERENCES `user` (`id`);
 
 --
--- Constraints for table `permissions`
+-- Limiti per la tabella `permissions`
 --
 ALTER TABLE `permissions`
   ADD CONSTRAINT `permissions_ibfk_1` FOREIGN KEY (`room_id`) REFERENCES `room` (`id`),
   ADD CONSTRAINT `permissions_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
--- Constraints for table `rfid`
+-- Limiti per la tabella `rfid`
 --
 ALTER TABLE `rfid`
   ADD CONSTRAINT `rfid_ibfk_1` FOREIGN KEY (`room_id`) REFERENCES `room` (`id`);
 
 --
--- Constraints for table `sensors`
+-- Limiti per la tabella `sensors`
 --
 ALTER TABLE `sensors`
   ADD CONSTRAINT `sensors_ibfk_1` FOREIGN KEY (`room_id`) REFERENCES `room` (`id`);
 
 --
--- Constraints for table `user`
+-- Limiti per la tabella `user`
 --
 ALTER TABLE `user`
   ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`),
