@@ -1,6 +1,7 @@
 import configparser
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
+from flask_cors import CORS
 from flaskext.mysql import MySQL
 from flask_restful import Resource, Api
 from flask_httpauth import HTTPBasicAuth
@@ -22,10 +23,13 @@ app.config['MYSQL_DATABASE_DB'] = config['DEFAULT']['NAME']
 app.config['MYSQL_DATABASE_HOST'] = config['DEFAULT']['HOST']
 mysql.init_app(app)
 
+CORS(app)
+
 #to view connect to https://user:pass@localhost:5004/logs
 class StudentLogs(Resource):
     @auth.login_required
     def get(self):
+        print(request.headers)
         db = mysql.connect()
         res = ()
         entries = []
@@ -53,6 +57,7 @@ api.add_resource(StudentLogs, '/logs')
 
 @auth.verify_password
 def verify(username, password):
+    print(request.headers)
     if not (username and password):
         return False
     db = mysql.connect()
