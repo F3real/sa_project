@@ -23,7 +23,8 @@ app.config['MYSQL_DATABASE_DB'] = config['DEFAULT']['NAME']
 app.config['MYSQL_DATABASE_HOST'] = config['DEFAULT']['HOST']
 mysql.init_app(app)
 
-CORS(app)
+CORS(app, resources='/logs', allow_headers='*',
+     origins='*', expose_headers='Authorization')
 
 #to view connect to https://user:pass@localhost:5004/logs
 class StudentLogs(Resource):
