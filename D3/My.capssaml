@@ -86,15 +86,18 @@
     <ports xsi:type="components:InMessagePort"/>
     <ports xsi:type="components:OutMessagePort"/>
     <ports xsi:type="components:OutMessagePort"/>
+    <ports xsi:type="components:InMessagePort"/>
     <modes xsi:type="components:InitialMode" name="Mode 1">
       <behaviouralElements xsi:type="components:ReceiveMessage" outgoing="//@SAElements.10/@modes.0/@behaviouralElements.3" dataRecipientName="cardDataA" fromMessagePorts="//@SAElements.10/@ports.0"/>
       <behaviouralElements xsi:type="components:ReceiveMessage" outgoing="//@SAElements.10/@modes.0/@behaviouralElements.6" fromMessagePorts="//@SAElements.10/@ports.2"/>
       <behaviouralElements xsi:type="components:UnicastSendMessage" incoming="//@SAElements.10/@modes.0/@behaviouralElements.3" toMessagePorts="//@SAElements.10/@ports.1"/>
       <behaviouralElements xsi:type="components:Link" source="//@SAElements.10/@modes.0/@behaviouralElements.0" target="//@SAElements.10/@modes.0/@behaviouralElements.2"/>
-      <behaviouralElements xsi:type="components:UnicastSendMessage" outgoing="//@SAElements.10/@modes.0/@behaviouralElements.7" incoming="//@SAElements.10/@modes.0/@behaviouralElements.6" toMessagePorts="//@SAElements.10/@ports.4"/>
+      <behaviouralElements xsi:type="components:UnicastSendMessage" outgoing="//@SAElements.10/@modes.0/@behaviouralElements.7" incoming="//@SAElements.10/@modes.0/@behaviouralElements.6 //@SAElements.10/@modes.0/@behaviouralElements.9" toMessagePorts="//@SAElements.10/@ports.4"/>
       <behaviouralElements xsi:type="components:UnicastSendMessage" incoming="//@SAElements.10/@modes.0/@behaviouralElements.7" data="gateDataA" toMessagePorts="//@SAElements.10/@ports.3" dataRecipient="//@SAElements.10/@applicationData.1"/>
       <behaviouralElements xsi:type="components:Link" source="//@SAElements.10/@modes.0/@behaviouralElements.1" target="//@SAElements.10/@modes.0/@behaviouralElements.4" condition="ifAccessAllowed"/>
       <behaviouralElements xsi:type="components:Link" source="//@SAElements.10/@modes.0/@behaviouralElements.4" target="//@SAElements.10/@modes.0/@behaviouralElements.5"/>
+      <behaviouralElements xsi:type="components:ReceiveMessage" outgoing="//@SAElements.10/@modes.0/@behaviouralElements.9" dataRecipientName="cardDataA" fromMessagePorts="//@SAElements.10/@ports.5"/>
+      <behaviouralElements xsi:type="components:Link" source="//@SAElements.10/@modes.0/@behaviouralElements.8" target="//@SAElements.10/@modes.0/@behaviouralElements.4"/>
     </modes>
     <applicationData xsi:type="components:PrimitiveDataDeclaration" dataName="cardDataA" type="string"/>
     <applicationData xsi:type="components:PrimitiveDataDeclaration" dataName="gateDataA" type="string"/>
