@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components:SoftwareArchitecture xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:components="components">
+  <SAElements xsi:type="components:Component" name="FireAlarm">
+    <ports xsi:type="components:OutMessagePort"/>
+    <modes xsi:type="components:InitialMode">
+      <behaviouralElements xsi:type="components:SenseGasSmoke" outgoing="//@SAElements.0/@modes.0/@behaviouralElements.2"/>
+      <behaviouralElements xsi:type="components:UnicastSendMessage" incoming="//@SAElements.0/@modes.0/@behaviouralElements.2" data="fireAlarm" toMessagePorts="//@SAElements.0/@ports.0"/>
+      <behaviouralElements xsi:type="components:Link" source="//@SAElements.0/@modes.0/@behaviouralElements.0" target="//@SAElements.0/@modes.0/@behaviouralElements.1"/>
+    </modes>
+  </SAElements>
+  <SAElements xsi:type="components:Component" name="EarthquakeAlarm">
+    <ports xsi:type="components:OutMessagePort"/>
+    <modes xsi:type="components:InitialMode">
+      <behaviouralElements xsi:type="components:SenseVibration" outgoing="//@SAElements.1/@modes.0/@behaviouralElements.2"/>
+      <behaviouralElements xsi:type="components:UnicastSendMessage" incoming="//@SAElements.1/@modes.0/@behaviouralElements.2" data="quakeAlarm" toMessagePorts="//@SAElements.1/@ports.0"/>
+      <behaviouralElements xsi:type="components:Link" source="//@SAElements.1/@modes.0/@behaviouralElements.0" target="//@SAElements.1/@modes.0/@behaviouralElements.1"/>
+    </modes>
+  </SAElements>
+  <SAElements xsi:type="components:Component" name="AlarmSiren">
+    <ports xsi:type="components:InMessagePort"/>
+    <modes xsi:type="components:InitialMode">
+      <behaviouralElements xsi:type="components:Alarm" incoming="//@SAElements.2/@modes.0/@behaviouralElements.2"/>
+      <behaviouralElements xsi:type="components:ReceiveMessage" outgoing="//@SAElements.2/@modes.0/@behaviouralElements.2" dataRecipientName="AlarmStatus"/>
+      <behaviouralElements xsi:type="components:Link" source="//@SAElements.2/@modes.0/@behaviouralElements.1" target="//@SAElements.2/@modes.0/@behaviouralElements.0" condition="turn on or off"/>
+    </modes>
+  </SAElements>
+  <SAElements xsi:type="components:Component" name="MessageControllerClient">
+    <ports xsi:type="components:InMessagePort"/>
+    <ports xsi:type="components:OutMessagePort"/>
+    <ports xsi:type="components:OutMessagePort"/>
+    <ports xsi:type="components:InMessagePort"/>
+    <modes xsi:type="components:InitialMode">
+      <behaviouralElements xsi:type="components:ReceiveMessage" outgoing="//@SAElements.3/@modes.0/@behaviouralElements.4" dataRecipientName="alarm" fromMessagePorts="//@SAElements.3/@ports.0"/>
+      <behaviouralElements xsi:type="components:UnicastSendMessage" incoming="//@SAElements.3/@modes.0/@behaviouralElements.5" toMessagePorts="//@SAElements.3/@ports.2"/>
+      <behaviouralElements xsi:type="components:Fork" outgoing="//@SAElements.3/@modes.0/@behaviouralElements.5 //@SAElements.3/@modes.0/@behaviouralElements.6" incoming="//@SAElements.3/@modes.0/@behaviouralElements.4"/>
+      <behaviouralElements xsi:type="components:UnicastSendMessage" incoming="//@SAElements.3/@modes.0/@behaviouralElements.6 //@SAElements.3/@modes.0/@behaviouralElements.8" toMessagePorts="//@SAElements.3/@ports.1"/>
+      <behaviouralElements xsi:type="components:Link" source="//@SAElements.3/@modes.0/@behaviouralElements.0" target="//@SAElements.3/@modes.0/@behaviouralElements.2"/>
+      <behaviouralElements xsi:type="components:Link" source="//@SAElements.3/@modes.0/@behaviouralElements.2" target="//@SAElements.3/@modes.0/@behaviouralElements.1"/>
+      <behaviouralElements xsi:type="components:Link" source="//@SAElements.3/@modes.0/@behaviouralElements.2" target="//@SAElements.3/@modes.0/@behaviouralElements.3" condition="start alarm"/>
+      <behaviouralElements xsi:type="components:ReceiveMessage" outgoing="//@SAElements.3/@modes.0/@behaviouralElements.8" dataRecipientName="alarm" fromMessagePorts="//@SAElements.3/@ports.3"/>
+      <behaviouralElements xsi:type="components:Link" source="//@SAElements.3/@modes.0/@behaviouralElements.7" target="//@SAElements.3/@modes.0/@behaviouralElements.3" condition="stop alarm"/>
+    </modes>
+  </SAElements>
+  <SAElements xsi:type="components:Component" name="MessageControllerServer">
+    <ports xsi:type="components:InMessagePort"/>
+    <ports xsi:type="components:OutMessagePort"/>
+    <ports xsi:type="components:OutMessagePort"/>
+    <ports xsi:type="components:InMessagePort"/>
+    <ports xsi:type="components:InMessagePort"/>
+    <ports xsi:type="components:OutMessagePort"/>
+    <modes xsi:type="components:InitialMode">
+      <behaviouralElements xsi:type="components:UnicastSendMessage" incoming="//@SAElements.4/@modes.0/@behaviouralElements.3" toMessagePorts="//@SAElements.4/@ports.2"/>
+      <behaviouralElements xsi:type="components:UnicastSendMessage" incoming="//@SAElements.4/@modes.0/@behaviouralElements.5" toMessagePorts="//@SAElements.4/@ports.1"/>
+      <behaviouralElements xsi:type="components:ReceiveMessage" outgoing="//@SAElements.4/@modes.0/@behaviouralElements.3" fromMessagePorts="//@SAElements.4/@ports.0"/>
+      <behaviouralElements xsi:type="components:Link" source="//@SAElements.4/@modes.0/@behaviouralElements.2" target="//@SAElements.4/@modes.0/@behaviouralElements.0"/>
+      <behaviouralElements xsi:type="components:ReceiveMessage" outgoing="//@SAElements.4/@modes.0/@behaviouralElements.5" fromMessagePorts="//@SAElements.4/@ports.3"/>
+      <behaviouralElements xsi:type="components:Link" source="//@SAElements.4/@modes.0/@behaviouralElements.4" target="//@SAElements.4/@modes.0/@behaviouralElements.1"/>
+      <behaviouralElements xsi:type="components:UnicastSendMessage" incoming="//@SAElements.4/@modes.0/@behaviouralElements.8" toMessagePorts="//@SAElements.4/@ports.5"/>
+      <behaviouralElements xsi:type="components:ReceiveMessage" outgoing="//@SAElements.4/@modes.0/@behaviouralElements.8" fromMessagePorts="//@SAElements.4/@ports.4"/>
+      <behaviouralElements xsi:type="components:Link" source="//@SAElements.4/@modes.0/@behaviouralElements.7" target="//@SAElements.4/@modes.0/@behaviouralElements.6"/>
+    </modes>
+  </SAElements>
+  <SAElements xsi:type="components:Component" name="AlarmService">
+    <ports xsi:type="components:InMessagePort"/>
+    <ports xsi:type="components:OutMessagePort"/>
+    <ports xsi:type="components:InMessagePort"/>
+    <ports xsi:type="components:OutMessagePort"/>
+    <ports xsi:type="components:OutMessagePort"/>
+    <ports xsi:type="components:OutMessagePort"/>
+    <ports xsi:type="components:InMessagePort"/>
+    <modes xsi:type="components:InitialMode">
+      <behaviouralElements xsi:type="components:ReceiveMessage" outgoing="//@SAElements.5/@modes.0/@behaviouralElements.3" fromMessagePorts="//@SAElements.5/@ports.0"/>
+      <behaviouralElements xsi:type="components:UnicastSendMessage" incoming="//@SAElements.5/@modes.0/@behaviouralElements.4" toMessagePorts="//@SAElements.5/@ports.3"/>
+      <behaviouralElements xsi:type="components:Fork" outgoing="//@SAElements.5/@modes.0/@behaviouralElements.4 //@SAElements.5/@modes.0/@behaviouralElements.6" incoming="//@SAElements.5/@modes.0/@behaviouralElements.3"/>
+      <behaviouralElements xsi:type="components:Link" source="//@SAElements.5/@modes.0/@behaviouralElements.0" target="//@SAElements.5/@modes.0/@behaviouralElements.2"/>
+      <behaviouralElements xsi:type="components:Link" source="//@SAElements.5/@modes.0/@behaviouralElements.2" target="//@SAElements.5/@modes.0/@behaviouralElements.1" condition="send user notifications"/>
+      <behaviouralElements xsi:type="components:UnicastSendMessage" outgoing="//@SAElements.5/@modes.0/@behaviouralElements.8" incoming="//@SAElements.5/@modes.0/@behaviouralElements.6" toMessagePorts="//@SAElements.5/@ports.5"/>
+      <behaviouralElements xsi:type="components:Link" source="//@SAElements.5/@modes.0/@behaviouralElements.2" target="//@SAElements.5/@modes.0/@behaviouralElements.5" condition="notify emergency services"/>
+      <behaviouralElements xsi:type="components:UnicastSendMessage" incoming="//@SAElements.5/@modes.0/@behaviouralElements.8" toMessagePorts="//@SAElements.5/@ports.4"/>
+      <behaviouralElements xsi:type="components:Link" source="//@SAElements.5/@modes.0/@behaviouralElements.5" target="//@SAElements.5/@modes.0/@behaviouralElements.7" condition="write DB logs"/>
+      <behaviouralElements xsi:type="components:ReceiveMessage" outgoing="//@SAElements.5/@modes.0/@behaviouralElements.12" fromMessagePorts="//@SAElements.5/@ports.2"/>
+      <behaviouralElements xsi:type="components:ReceiveMessage" fromMessagePorts="//@SAElements.5/@ports.6"/>
+      <behaviouralElements xsi:type="components:UnicastSendMessage" incoming="//@SAElements.5/@modes.0/@behaviouralElements.12" toMessagePorts="//@SAElements.5/@ports.1"/>
+      <behaviouralElements xsi:type="components:Link" source="//@SAElements.5/@modes.0/@behaviouralElements.9" target="//@SAElements.5/@modes.0/@behaviouralElements.11" condition="Send stop alarm"/>
+    </modes>
+  </SAElements>
+  <SAElements xsi:type="components:Connection" source="//@SAElements.0/@ports.0" target="//@SAElements.3/@ports.0"/>
+  <SAElements xsi:type="components:Connection" source="//@SAElements.1/@ports.0" target="//@SAElements.3/@ports.0"/>
+  <SAElements xsi:type="components:Connection" source="//@SAElements.3/@ports.2" target="//@SAElements.4/@ports.0"/>
+  <SAElements xsi:type="components:Connection" source="//@SAElements.4/@ports.1" target="//@SAElements.3/@ports.3"/>
+  <SAElements xsi:type="components:Connection" source="//@SAElements.4/@ports.2" target="//@SAElements.5/@ports.0"/>
+  <SAElements xsi:type="components:Connection" source="//@SAElements.5/@ports.1" target="//@SAElements.4/@ports.3"/>
+  <SAElements xsi:type="components:Connection" source="//@SAElements.5/@ports.3" target="//@SAElements.4/@ports.4"/>
+  <SAElements xsi:type="components:Component" name="OperatorsApp">
+    <ports xsi:type="components:OutMessagePort"/>
+    <modes xsi:type="components:InitialMode">
+      <behaviouralElements xsi:type="components:EmergencyButton" outgoing="//@SAElements.13/@modes.0/@behaviouralElements.4" incoming="//@SAElements.13/@modes.0/@behaviouralElements.3"/>
+      <behaviouralElements xsi:type="components:Human" outgoing="//@SAElements.13/@modes.0/@behaviouralElements.3"/>
+      <behaviouralElements xsi:type="components:UnicastSendMessage" incoming="//@SAElements.13/@modes.0/@behaviouralElements.4" data="operatorAlarm" toMessagePorts="//@SAElements.13/@ports.0"/>
+      <behaviouralElements xsi:type="components:Link" source="//@SAElements.13/@modes.0/@behaviouralElements.1" target="//@SAElements.13/@modes.0/@behaviouralElements.0"/>
+      <behaviouralElements xsi:type="components:Link" source="//@SAElements.13/@modes.0/@behaviouralElements.0" target="//@SAElements.13/@modes.0/@behaviouralElements.2"/>
+    </modes>
+  </SAElements>
+  <SAElements xsi:type="components:Connection" source="//@SAElements.13/@ports.0" target="//@SAElements.3/@ports.0"/>
+  <SAElements xsi:type="components:Connection" source="//@SAElements.3/@ports.1" target="//@SAElements.2/@ports.0"/>
+</components:SoftwareArchitecture>
