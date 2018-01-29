@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:filesystem="filesystem" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="_q-SbgP0mEeeEf4WNVtMN3g" type="CAPShwml" measurementUnit="Pixel">
-  <styles xmi:type="notation:DiagramStyle" xmi:id="_q-Sbgf0mEeeEf4WNVtMN3g"/>
-  <element xmi:type="filesystem:NodeSpecification" href="My.capshwml#/"/>
-</notation:Diagram>

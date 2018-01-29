@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<filesystem:NodeSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:filesystem="filesystem">
+  <nodes name=" Camera" OS="Microsoft Windows" routingProtocol="">
+    <cctvcameras/>
+    <modes/>
+    <microcontroller>
+      <processors name=" MIPS 74 K" frequency="500"/>
+      <adcs/>
+      <dacs/>
+      <memory name="RAM" size="128000"/>
+      <programMemory name="Flash" size="128000"/>
+      <transceiver name="Wireless" frequency="2400.0"/>
+    </microcontroller>
+  </nodes>
+  <nodes name="RFID reader" OS="Linux">
+    <RfidReaders name="Rfid reader"/>
+    <modes/>
+    <microcontroller>
+      <processors name="Marvell 88AP270" frequency="624"/>
+      <memory name="RAM" size="128000"/>
+      <programMemory name="Flash" size="128000"/>
+      <transceiver name="Wireless" frequency="2400.0"/>
+    </microcontroller>
+  </nodes>
+  <nodes name="Door lock actuator" OS="Windows Microsoft">
+    <actuators name="Door lock actuator"/>
+    <modes/>
+    <microcontroller>
+      <processors name="L9953" frequency="16" cpi="1.0"/>
+      <memory name="DDRAM" size="16"/>
+      <programMemory name="Flash" size="256"/>
+      <transceiver name="Wireless" frequency="2400.0"/>
+    </microcontroller>
+  </nodes>
+  <nodes name="Fire sensor" OS="Microsoft Windows">
+    <sensors name="Fire sensor"/>
+    <modes/>
+    <microcontroller>
+      <processors name="ARM Cortex-M4F" frequency="48"/>
+      <memory name="SRAM" size="288"/>
+      <programMemory name="NOR Flash" size="1024"/>
+      <transceiver name="Wireless" frequency="2400.0"/>
+    </microcontroller>
+  </nodes>
+  <nodes name="Earthquake sensor" OS="Genos">
+    <sensors name="Earthquake sensor"/>
+    <modes/>
+    <microcontroller>
+      <processors name="TI MSP430F1611" frequency="10"/>
+      <memory name="RAM" size="10"/>
+      <programMemory name="Flash" size="48"/>
+      <transceiver name="Wireless" frequency="2400.0" modulation=""/>
+    </microcontroller>
+  </nodes>
+  <nodes name="Local server" OS="Microsoft Windows">
+    <modes/>
+    <microcontroller>
+      <processors name=" INTEL CORE  I7-6900K" frequency="3200"/>
+      <memory name="RAM" size="8000000"/>
+      <programMemory name="Storage" size="1000000000"/>
+      <storageMemory name="RAID" size="2000000000"/>
+      <transceiver name="LAN" frequency="2400.0"/>
+    </microcontroller>
+  </nodes>
+  <nodes name="Main server" OS="Microsoft Windows" middleware="" macProtocol="">
+    <modes/>
+    <microcontroller>
+      <processors name=" INTEL CORE  I7-6900K" frequency="3200"/>
+      <memory name="RAM" size="16000000"/>
+      <programMemory name="Storage" size="2000000000"/>
+      <transceiver name="LAN" frequency="2400.0"/>
+    </microcontroller>
+  </nodes>
+  <nodes name="Device controller" OS="Microsoft Windows">
+    <modes/>
+    <microcontroller>
+      <processors name=" INTEL CORE  I7-6900K" frequency="3200"/>
+      <memory name="RAM" size="8000000"/>
+      <programMemory name="Storage" size="1000000000"/>
+      <transceiver name="LAN" frequency="2400.0"/>
+    </microcontroller>
+  </nodes>
+</filesystem:NodeSpecification>
