@@ -59,7 +59,7 @@ def callback_RFID(ch, method, properties, body):
 
 #Send message to open gate in case of authorization
 def handle_gate_message(door_id):
-    print("Handling RFID request")
+    print("Handling GATE request")
     connection = pika.BlockingConnection(pika.ConnectionParameters(RABBIT_MQ))
     channel = connection.channel()
     channel.queue_declare(queue='gate')
