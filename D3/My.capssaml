@@ -3,9 +3,11 @@
   <SAElements xsi:type="components:Component" name="RFID Reader">
     <ports xsi:type="components:OutMessagePort"/>
     <modes xsi:type="components:InitialMode" name="Mode 1">
-      <behaviouralElements xsi:type="components:ReadRfid" name="" outgoing="//@SAElements.0/@modes.0/@behaviouralElements.2" dataDeclarationName="cardData" data="" dataRecipient="//@SAElements.0/@applicationData.0"/>
+      <behaviouralElements xsi:type="components:ReadRfid" name="" outgoing="//@SAElements.0/@modes.0/@behaviouralElements.2" incoming="//@SAElements.0/@modes.0/@behaviouralElements.4" dataDeclarationName="cardData" data="" dataRecipient="//@SAElements.0/@applicationData.0"/>
       <behaviouralElements xsi:type="components:UnicastSendMessage" incoming="//@SAElements.0/@modes.0/@behaviouralElements.2" data="cardData" toMessagePorts="//@SAElements.0/@ports.0" dataRecipient="//@SAElements.0/@applicationData.0"/>
       <behaviouralElements xsi:type="components:Link" source="//@SAElements.0/@modes.0/@behaviouralElements.0" target="//@SAElements.0/@modes.0/@behaviouralElements.1"/>
+      <behaviouralElements xsi:type="components:Human" outgoing="//@SAElements.0/@modes.0/@behaviouralElements.4"/>
+      <behaviouralElements xsi:type="components:Link" source="//@SAElements.0/@modes.0/@behaviouralElements.3" target="//@SAElements.0/@modes.0/@behaviouralElements.0"/>
     </modes>
     <applicationData xsi:type="components:PrimitiveDataDeclaration" dataName="cardData" type="string"/>
   </SAElements>
@@ -75,12 +77,12 @@
     <ports xsi:type="components:OutMessagePort"/>
     <ports xsi:type="components:InMessagePort"/>
     <modes xsi:type="components:InitialMode" name="Mode 1">
-      <behaviouralElements xsi:type="components:UnicastSendMessage" incoming="//@SAElements.9/@modes.0/@behaviouralElements.2" data="queryResult" toMessagePorts="//@SAElements.9/@ports.0" dataRecipient="//@SAElements.9/@applicationData.1"/>
-      <behaviouralElements xsi:type="components:ReceiveMessage" outgoing="//@SAElements.9/@modes.0/@behaviouralElements.2" dataRecipientName="query" fromMessagePorts="//@SAElements.9/@ports.1" dataRecipient="//@SAElements.9/@applicationData.0"/>
-      <behaviouralElements xsi:type="components:Link" source="//@SAElements.9/@modes.0/@behaviouralElements.1" target="//@SAElements.9/@modes.0/@behaviouralElements.0" condition="readResultOfQuery"/>
+      <behaviouralElements xsi:type="components:UnicastSendMessage" incoming="//@SAElements.9/@modes.0/@behaviouralElements.2" data="accessQueryResult" toMessagePorts="//@SAElements.9/@ports.0" dataRecipient="//@SAElements.9/@applicationData.1"/>
+      <behaviouralElements xsi:type="components:ReceiveMessage" outgoing="//@SAElements.9/@modes.0/@behaviouralElements.2" dataRecipientName="accessQuery" fromMessagePorts="//@SAElements.9/@ports.1" dataRecipient="//@SAElements.9/@applicationData.0"/>
+      <behaviouralElements xsi:type="components:Link" source="//@SAElements.9/@modes.0/@behaviouralElements.1" target="//@SAElements.9/@modes.0/@behaviouralElements.0" condition="executeQuery"/>
     </modes>
-    <applicationData xsi:type="components:PrimitiveDataDeclaration" dataName="query" type="string"/>
-    <applicationData xsi:type="components:PrimitiveDataDeclaration" dataName="queryResult" value="" type="string"/>
+    <applicationData xsi:type="components:PrimitiveDataDeclaration" dataName="accessQuery" type="string"/>
+    <applicationData xsi:type="components:PrimitiveDataDeclaration" dataName="accessQueryResult" value="" type="string"/>
   </SAElements>
   <SAElements xsi:type="components:Component" name="AccessService">
     <ports xsi:type="components:InMessagePort"/>
@@ -93,7 +95,7 @@
       <behaviouralElements xsi:type="components:UnicastSendMessage" incoming="//@SAElements.10/@modes.0/@behaviouralElements.3" data="cardDataA" toMessagePorts="//@SAElements.10/@ports.1" dataRecipient="//@SAElements.10/@applicationData.1"/>
       <behaviouralElements xsi:type="components:Link" source="//@SAElements.10/@modes.0/@behaviouralElements.0" target="//@SAElements.10/@modes.0/@behaviouralElements.2"/>
       <behaviouralElements xsi:type="components:UnicastSendMessage" incoming="//@SAElements.10/@modes.0/@behaviouralElements.5" data="gateDataA" toMessagePorts="//@SAElements.10/@ports.3" dataRecipient="//@SAElements.10/@applicationData.1"/>
-      <behaviouralElements xsi:type="components:Link" source="//@SAElements.10/@modes.0/@behaviouralElements.1" target="//@SAElements.10/@modes.0/@behaviouralElements.4" condition="if process(queryResult) == true"/>
+      <behaviouralElements xsi:type="components:Link" source="//@SAElements.10/@modes.0/@behaviouralElements.1" target="//@SAElements.10/@modes.0/@behaviouralElements.4" condition="if process(queryResultA) == true"/>
     </modes>
     <applicationData xsi:type="components:PrimitiveDataDeclaration" dataName="cardDataA" type="string"/>
     <applicationData xsi:type="components:PrimitiveDataDeclaration" dataName="gateDataA" type="string"/>
@@ -105,4 +107,66 @@
   <SAElements xsi:type="components:Connection" source="//@SAElements.10/@ports.1" target="//@SAElements.9/@ports.1"/>
   <SAElements xsi:type="components:Connection" source="//@SAElements.10/@ports.3" target="//@SAElements.6/@ports.3"/>
   <SAElements xsi:type="components:Connection" source="//@SAElements.9/@ports.0" target="//@SAElements.10/@ports.2"/>
+  <SAElements xsi:type="components:Component" name="MainServerDB">
+    <ports xsi:type="components:InMessagePort"/>
+    <ports xsi:type="components:OutMessagePort"/>
+    <ports xsi:type="components:InMessagePort"/>
+    <ports xsi:type="components:OutMessagePort"/>
+    <modes xsi:type="components:InitialMode">
+      <behaviouralElements xsi:type="components:ReceiveMessage" outgoing="//@SAElements.17/@modes.0/@behaviouralElements.5" dataRecipientName="childLogsQuery" fromMessagePorts="//@SAElements.17/@ports.2" dataRecipient="//@SAElements.17/@applicationData.2"/>
+      <behaviouralElements xsi:type="components:ReceiveMessage" outgoing="//@SAElements.17/@modes.0/@behaviouralElements.4" dataRecipientName="credentialsQuery" fromMessagePorts="//@SAElements.17/@ports.0" dataRecipient="//@SAElements.17/@applicationData.0"/>
+      <behaviouralElements xsi:type="components:UnicastSendMessage" incoming="//@SAElements.17/@modes.0/@behaviouralElements.5" data="childLogsResult" toMessagePorts="//@SAElements.17/@ports.3" dataRecipient="//@SAElements.17/@applicationData.3"/>
+      <behaviouralElements xsi:type="components:UnicastSendMessage" incoming="//@SAElements.17/@modes.0/@behaviouralElements.4" data="credentialsResult" toMessagePorts="//@SAElements.17/@ports.1" dataRecipient="//@SAElements.17/@applicationData.1"/>
+      <behaviouralElements xsi:type="components:Link" source="//@SAElements.17/@modes.0/@behaviouralElements.1" target="//@SAElements.17/@modes.0/@behaviouralElements.3" condition="executeQuery"/>
+      <behaviouralElements xsi:type="components:Link" source="//@SAElements.17/@modes.0/@behaviouralElements.0" target="//@SAElements.17/@modes.0/@behaviouralElements.2" condition="executeQuery"/>
+    </modes>
+    <applicationData xsi:type="components:PrimitiveDataDeclaration" dataName="credentialsQuery" type="string"/>
+    <applicationData xsi:type="components:PrimitiveDataDeclaration" dataName="credentialsResult" type="string"/>
+    <applicationData xsi:type="components:PrimitiveDataDeclaration" dataName="childLogsQuery" value="" type="string"/>
+    <applicationData xsi:type="components:PrimitiveDataDeclaration" dataName="childLogsResult" type="string"/>
+  </SAElements>
+  <SAElements xsi:type="components:Component" name="UserDataService">
+    <ports xsi:type="components:InMessagePort"/>
+    <ports xsi:type="components:OutMessagePort"/>
+    <ports xsi:type="components:InMessagePort"/>
+    <ports xsi:type="components:OutMessagePort"/>
+    <ports xsi:type="components:InMessagePort"/>
+    <ports xsi:type="components:OutMessagePort"/>
+    <modes xsi:type="components:InitialMode" name="Mode 1">
+      <behaviouralElements xsi:type="components:UnicastSendMessage" incoming="//@SAElements.18/@modes.0/@behaviouralElements.7" data="credentialsDB" toMessagePorts="//@SAElements.18/@ports.3" dataRecipient="//@SAElements.18/@applicationData.1"/>
+      <behaviouralElements xsi:type="components:UnicastSendMessage" incoming="//@SAElements.18/@modes.0/@behaviouralElements.6" data="credentials" toMessagePorts="//@SAElements.18/@ports.1" dataRecipient="//@SAElements.18/@applicationData.0"/>
+      <behaviouralElements xsi:type="components:UnicastSendMessage" incoming="//@SAElements.18/@modes.0/@behaviouralElements.8" data="childLogsRespons" toMessagePorts="//@SAElements.18/@ports.5" dataRecipient="//@SAElements.18/@applicationData.2"/>
+      <behaviouralElements xsi:type="components:ReceiveMessage" outgoing="//@SAElements.18/@modes.0/@behaviouralElements.6" dataRecipientName="credentials" fromMessagePorts="//@SAElements.18/@ports.0" dataRecipient="//@SAElements.18/@applicationData.0"/>
+      <behaviouralElements xsi:type="components:ReceiveMessage" outgoing="//@SAElements.18/@modes.0/@behaviouralElements.7 //@SAElements.18/@modes.0/@behaviouralElements.10" dataRecipientName="credentialsDB" fromMessagePorts="//@SAElements.18/@ports.2" dataRecipient="//@SAElements.18/@applicationData.1"/>
+      <behaviouralElements xsi:type="components:ReceiveMessage" outgoing="//@SAElements.18/@modes.0/@behaviouralElements.8" dataRecipientName="childLogsResponse" fromMessagePorts="//@SAElements.18/@ports.4" dataRecipient="//@SAElements.18/@applicationData.2"/>
+      <behaviouralElements xsi:type="components:Link" source="//@SAElements.18/@modes.0/@behaviouralElements.3" target="//@SAElements.18/@modes.0/@behaviouralElements.1"/>
+      <behaviouralElements xsi:type="components:Link" source="//@SAElements.18/@modes.0/@behaviouralElements.4" target="//@SAElements.18/@modes.0/@behaviouralElements.0" condition="if authorized(credentialsDB)"/>
+      <behaviouralElements xsi:type="components:Link" source="//@SAElements.18/@modes.0/@behaviouralElements.5" target="//@SAElements.18/@modes.0/@behaviouralElements.2"/>
+      <behaviouralElements xsi:type="components:UnicastSendMessage" incoming="//@SAElements.18/@modes.0/@behaviouralElements.10" data="errorUSAuth" toMessagePorts="//@SAElements.18/@ports.5" dataRecipient="//@SAElements.18/@applicationData.3"/>
+      <behaviouralElements xsi:type="components:Link" source="//@SAElements.18/@modes.0/@behaviouralElements.4" target="//@SAElements.18/@modes.0/@behaviouralElements.9" condition="if not authorized(credentialsDB)"/>
+    </modes>
+    <applicationData xsi:type="components:PrimitiveDataDeclaration" dataName="credentials" type="string"/>
+    <applicationData xsi:type="components:PrimitiveDataDeclaration" dataName="credentialsDB" type="string"/>
+    <applicationData xsi:type="components:PrimitiveDataDeclaration" dataName="childLogsResponse" type="string"/>
+    <applicationData xsi:type="components:PrimitiveDataDeclaration" dataName="errorUSAuth" type="string"/>
+  </SAElements>
+  <SAElements xsi:type="components:Component" name="UserAPP">
+    <ports xsi:type="components:OutMessagePort"/>
+    <ports xsi:type="components:InMessagePort"/>
+    <modes xsi:type="components:InitialMode" name="Mode 1">
+      <behaviouralElements xsi:type="components:UnicastSendMessage" incoming="//@SAElements.19/@modes.0/@behaviouralElements.4" data="userRequest" toMessagePorts="//@SAElements.19/@ports.0" dataRecipient="//@SAElements.19/@applicationData.1"/>
+      <behaviouralElements xsi:type="components:Human" outgoing="//@SAElements.19/@modes.0/@behaviouralElements.4" incoming="//@SAElements.19/@modes.0/@behaviouralElements.3"/>
+      <behaviouralElements xsi:type="components:ReceiveMessage" outgoing="//@SAElements.19/@modes.0/@behaviouralElements.3" dataRecipientName="userResponse" fromMessagePorts="//@SAElements.19/@ports.1" dataRecipient="//@SAElements.19/@applicationData.0"/>
+      <behaviouralElements xsi:type="components:Link" source="//@SAElements.19/@modes.0/@behaviouralElements.2" target="//@SAElements.19/@modes.0/@behaviouralElements.1"/>
+      <behaviouralElements xsi:type="components:Link" name="" source="//@SAElements.19/@modes.0/@behaviouralElements.1" target="//@SAElements.19/@modes.0/@behaviouralElements.0" condition="requestChildData"/>
+    </modes>
+    <applicationData xsi:type="components:PrimitiveDataDeclaration" dataName="userResponse" type="string"/>
+    <applicationData xsi:type="components:PrimitiveDataDeclaration" dataName="userRequest" type="string"/>
+  </SAElements>
+  <SAElements xsi:type="components:Connection" source="//@SAElements.19/@ports.0" target="//@SAElements.18/@ports.0"/>
+  <SAElements xsi:type="components:Connection" source="//@SAElements.18/@ports.1" target="//@SAElements.17/@ports.0"/>
+  <SAElements xsi:type="components:Connection" source="//@SAElements.17/@ports.1" target="//@SAElements.18/@ports.2"/>
+  <SAElements xsi:type="components:Connection" source="//@SAElements.18/@ports.3" target="//@SAElements.17/@ports.2"/>
+  <SAElements xsi:type="components:Connection" source="//@SAElements.17/@ports.3" target="//@SAElements.18/@ports.4"/>
+  <SAElements xsi:type="components:Connection" source="//@SAElements.18/@ports.5" target="//@SAElements.19/@ports.1"/>
 </components:SoftwareArchitecture>
